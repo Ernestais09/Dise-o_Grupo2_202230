@@ -10,6 +10,16 @@
     let marker = L.marker([10.9886091, -74.7922088]).addTo(myMap)
 
 
+    var points = [];
+
+    const poly = L.polyline(points,{color:'red',opacity:1}).addTo(myMap);
+
+
+    
+    
+
+
+
 
    // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 

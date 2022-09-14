@@ -18,7 +18,9 @@
           if (data.length > 0) {
             const latest = data[data.length - 1];
             marker.setLatLng([latest.LATITUD, latest.LONGITUD]);
-            mymap.setView([latest.LATITUD, latest.LONGITUD]);
+            myMap.setView([latest.LATITUD, latest.LONGITUD]);
+            points.push([latest.LATITUD, latest.LONGITUD]);
+            poly.addLatLng([latest.LATITUD, latest.LONGITUD]);
           }
         }
         xhttp.open("GET", "/WebApp/system.php");
