@@ -11,8 +11,8 @@
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function(){
           const data = JSON.parse(this.responseText);
-          document.getElementById("table").innerHTML = data.map((element, i) => {
-            return "<tr><td>"+i+"</td><td>"+element.LATITUD+"</td><td>"+element.LONGITUD+"</td><td>"+element.FECHA+"</td></tr>";
+          document.getElementById("table").innerHTML = data.map((element,  i) => {
+            return "<tr><td>"+i+"</td><td>"+element.LATITUD+"</td><td>"+element.LONGITUD+"</td><td>"+element.TIMESTAMP+"</td><td>"+element.FECHA+"</td></tr>";
           }).join("\n");
 
           if (data.length > 0) {
@@ -21,10 +21,10 @@
             mymap.setView([latest.LATITUD, latest.LONGITUD]);
           }
         }
-        xhttp.open("GET", "/webApp/system.php");
+        xhttp.open("GET", "/php_program/system.php");
         xhttp.send();
       }
-x
+
       setInterval(function(){
         table();
       }, 1000);
