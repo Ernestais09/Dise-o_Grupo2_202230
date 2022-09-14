@@ -22,4 +22,3 @@ function onMapClick(e) {
         .openOn(myMap);
 }
 
-map.on('click', onMapClick);
