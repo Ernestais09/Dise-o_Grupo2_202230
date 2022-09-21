@@ -36,6 +36,7 @@
         }
         xhttp.open("GET", "/WebApp/system.php");
         xhttp.send();
+        hist = "<?php echo json_encode($hist) ?>";
       }
 
       setInterval(function(){
@@ -113,7 +114,7 @@
                     <th scope="col">LATITUD</th>
                     <th scope="col">LONGITUD</th>
                     <th scope="col">TIMESTAMP</th>
-                    <th scope="col">FECHA</th>
+            <th scope="col">FECHA</th>
                     
                   </tr>
                 </thead>
@@ -122,17 +123,31 @@
               $sqldatosgps = ('SELECT * FROM usuario ORDER BY FECHA ASC');
               $query = mysqli_query($con, $sqldatosgps);
               $i =1;
+              $j=1;
+              $data = mysqli_fetch_array($query);
+              global $hist = [];
+
+              for ($j<$total){
+        
+                $coords=[$data[$j]['LATITUD'], $data[$j]['LONGITUD']];
+                $hist[]=$coords;
+        
+                }
+
+
                 while ($dataRow = mysqli_fetch_array($query)) { ?>
                 <tbody>
                   <tr>
                     <td><?php echo $i++; ?></td>
-                    <td><?php echo $dataRow['LATITUD'] ; ?></td>
+                }<td><?php echo $daRow['LATITUD'] ; ?></td>
                     <td><?php echo $dataRow['LONGITUD'] ; ?></td>
                     <td><?php echo $dataRow['TIMESTAMP'] ; ?></td>
                     <td><?php echo $dataRow['FECHA'] ; ?></td>
-                   
+                  
+
                 </tr>
                 </tbody>
+              
               <?php } ?>
               </table>
             </div>

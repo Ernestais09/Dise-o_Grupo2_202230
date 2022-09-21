@@ -11,9 +11,10 @@
 
 
     var points = [];
+    var hist = [];
 
     const poly = L.polyline(points,{color:'red',opacity:1}).addTo(myMap);
-
+    L.polyline(hist,{color:'blue', opacity:1}).addTo(myMap);
    // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 
     var popup = L.popup();

@@ -34,6 +34,8 @@ echo '<strong>Total: </strong> ('. $total .')';
     </thead>
     <?php
     $i = 1;
+    
+
     while ($dataRow = mysqli_fetch_array($query)) { ?>
         <tbody>
             <tr>
@@ -42,8 +44,10 @@ echo '<strong>Total: </strong> ('. $total .')';
                 <td><?php echo $dataRow['LONGITUD']; ?></td>
                 <td><?php echo $dataRow['TIMESTAMP']; ?></td>
                 <td><?php echo $dataRow['FECHA']; ?></td>
-               
+
             </tr>
         </tbody>
+        
     <?php } ?>
+    
 </table>
