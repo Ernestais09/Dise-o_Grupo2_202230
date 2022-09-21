@@ -28,11 +28,12 @@ public class Mavenproject2 {
         
         
         
-        NewClass objetoConexion = new NewClass();
+        NewClass objetoConexion;
+        objetoConexion = new NewClass();
         Connection cn = objetoConexion.estableceConexion();
         try{
             String lat,lon,tt,date;
-            ServerSocket servidor = new ServerSocket(3000);
+            ServerSocket servidor = new ServerSocket(9000);
             lat="hola";
             lon="hola";
             tt="hola";
@@ -49,11 +50,11 @@ public class Mavenproject2 {
                 user.close();
                 
                 String[] parts = dato.split("\\s+");
-                if (parts.length>=4){
+                if (parts.length>=9){
                     lat = parts[0];
                     lon = parts[1];
                     tt = parts[2];
-                    date = parts[3];
+                    date = parts[3]+parts[4]+parts[5]+parts[6]+parts[7]+parts[8];
                     System.out.println(lat);
                     System.out.println(lon);
                     System.out.println(tt);
