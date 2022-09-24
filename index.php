@@ -2,10 +2,22 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Real Time Data Display</title>
+    <title>GPS TIO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rel="icon" type="image/x-icon" href="assets/img/logo-mywebsite-urian-viera.svg">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="assets/css/material.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/loader.css">
+
   </head>
 
-  <body onload = "table();">
+  <body onload = "table();" style="background-color:rgb(252,170,70);">
     <script type="text/javascript">
       function table(){
         const xhttp = new XMLHttpRequest();
@@ -32,6 +44,7 @@
     </script>
   </body>
 </html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -44,23 +57,144 @@
 </head>
 <body>
     
+    <h1 style="text-align:center;">GPS Camión</h1>
     <div id="myMap" style="height: 500px"></div>
-    <table style="border:1;cellpadding:10;">
+    <p>
+    <h2 style="text-align:center;">Ubicación actual</h2>
+    <p>
+    <table cellspacing="3" cellpadding="3" border="1">
     <thead>
       <tr>
-        <td>#</td>
-        <td>Latitud</td>
-        <td>Longitud</td>
-        <td>Timestamp</td>
-        <td>Fecha</td>
+        <td align"right">#</td>
+        <td align"right">Latitud</td>
+        <td align"right">Longitud</td>
+        <td align"right">Timestamp</td>
+        <td align"right">Fecha</td>
       </tr>
     </thead>
     <tbody id="table">
     </tbody>
     </table>
+    <p>
+
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
      crossorigin=""></script>
     <script src="map.js"></script>
+
+
+
+    <section>
+          <div class="container" style="text-aling:center;">
+            <div class="row">
+              <h2 style="text-aling:center;">Consulta de historicos</h2>
+              <p>
+              <h4 style="text-aling:center;">Elija el rango de fechas a consultar</h4>
+              <p>
+              <h4 style="text-aling:center;">Fecha inicio:</h4>
+              <div class="col-md-12 text-center mt-5">
+                <form action="filtro.php" method="post" accept-charset="utf-8">
+                  <div class="row">
+                    <div class="col">
+                      <input type="date" name="fecha_ingreso" class="form-control"  placeholder="Fecha de Inicio" required>
+                    </div>
+                    <p>
+                    <h4 style="text-aling:center;">Fecha final:</h4>
+                    <div class="col">
+                      <input type="date" name="fechaFin" class="form-control" placeholder="Fecha Final" required>
+                    </div>
+                    <div class="col">
+                      <button type="button" class="btn btn-dark mb-2" id="filtro">Filtrar</button>
+                      
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <div class="col-md-12 text-center mt-5">     
+                <span id="loaderFiltro">  </span>
+              </div>
+              
+            <p>
+            <div class="table-responsive resultadoFiltro">
+              <table class="table table-hover" id="tableEmpleados" cellspacing="3" cellpadding="3" border="1">
+                <thead>
+                  <tr>
+                    <th scope="col" align"right">#</th>
+                    <th scope="col" align"right">LATITUD</th>
+                    <th scope="col" align"right">LONGITUD</th>
+                    <th scope="col" align"right">TIMESTAMP</th>
+                    <th scope="col" align"right">FECHA</th>
+                    
+                  </tr>
+                </thead>
+              <?php
+              include('config.php');
+              $sqldatosgps = ('SELECT * FROM usuario ORDER BY FECHA ASC');
+              $query = mysqli_query($con, $sqldatosgps);
+              $i =1;
+                while ($dataRow = mysqli_fetch_array($query)) { ?>
+                <tbody>
+                  <tr>
+                    <td><?php echo $i++; ?></td>
+                    <td><?php echo $dataRow['LATITUD'] ; ?></td>
+                    <td><?php echo $dataRow['LONGITUD'] ; ?></td>
+                    <td><?php echo $dataRow['TIMESTAMP'] ; ?></td>
+                    <td><?php echo $dataRow['FECHA'] ; ?></td>
+                   
+                </tr>
+                </tbody>
+              <?php } ?>
+              </table>
+            </div>
+
+            </div>
+          </div>
+      </section>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="assets/js/material.min.js"></script>
+     <script>
+  $(function() {
+      setTimeout(function(){
+        $('body').addClass('loaded');
+      }, 1000);
+
+
+//FILTRANDO REGISTROS
+$("#filtro").on("click", function(e){ 
+  e.preventDefault();
+  
+  loaderF(true);
+
+  var f_ingreso = $('input[name=fecha_ingreso]').val();
+  var f_fin = $('input[name=fechaFin]').val();
+  console.log(f_ingreso + '' + f_fin);
+
+  if(f_ingreso !="" && f_fin !=""){
+    $.post("filtro.php", {f_ingreso, f_fin}, function (data) {
+      $("#tableEmpleados").hide();
+      $(".resultadoFiltro").html(data);
+      loaderF(false);
+    });  
+  }else{
+    $("#loaderFiltro").html('<p style="color:red;  font-weight:bold;">Debe seleccionar ambas fechas</p>');
+  }
+} );
+
+
+function loaderF(statusLoader){
+    console.log(statusLoader);
+    if(statusLoader){
+      $("#loaderFiltro").show();
+      $("#loaderFiltro").html('<img class="img-fluid" src="assets/img/cargando.svg" style="left:50%; right: 50%; width:50px;">');
+    }else{
+      $("#loaderFiltro").hide();
+    }
+  }
+});
+</script>
+
+
 </body>
 </html>
