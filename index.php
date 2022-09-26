@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>GPS TIO</title>
+    <title>Real Time Data Display</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
@@ -17,7 +17,7 @@
 
   </head>
 
-  <body onload = "table();" style="background-color:rgb(252,170,70);">
+  <body onload = "table();">
     <script type="text/javascript">
       function table(){
         const xhttp = new XMLHttpRequest();
@@ -57,54 +57,43 @@
 </head>
 <body>
     
-    <h1 style="text-align:center;">GPS Camión</h1>
     <div id="myMap" style="height: 500px"></div>
-    <p>
-    <h2 style="text-align:center;">Ubicación actual</h2>
-    <p>
-    <table cellspacing="3" cellpadding="3" border="1">
+    <table style="border:1;cellpadding:10;">
     <thead>
       <tr>
-        <td align"right">#</td>
-        <td align"right">Latitud</td>
-        <td align"right">Longitud</td>
-        <td align"right">Timestamp</td>
-        <td align"right">Fecha</td>
+        <td>#</td>
+        <td>Latitud</td>
+        <td>Longitud</td>
+        <td>Timestamp</td>
+        <td>Fecha</td>
       </tr>
     </thead>
     <tbody id="table">
     </tbody>
     </table>
-    <p>
 
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
      crossorigin=""></script>
     <script src="map.js"></script>
 
-
+    
 
     <section>
-          <div class="container" style="text-aling:center;">
+          <div class="container">
             <div class="row">
-              <h2 style="text-aling:center;">Consulta de historicos</h2>
-              <p>
-              <h4 style="text-aling:center;">Elija el rango de fechas a consultar</h4>
-              <p>
-              <h4 style="text-aling:center;">Fecha inicio:</h4>
+              
               <div class="col-md-12 text-center mt-5">
                 <form action="filtro.php" method="post" accept-charset="utf-8">
                   <div class="row">
                     <div class="col">
                       <input type="date" name="fecha_ingreso" class="form-control"  placeholder="Fecha de Inicio" required>
                     </div>
-                    <p>
-                    <h4 style="text-aling:center;">Fecha final:</h4>
                     <div class="col">
                       <input type="date" name="fechaFin" class="form-control" placeholder="Fecha Final" required>
                     </div>
                     <div class="col">
-                      <button type="button" class="btn btn-dark mb-2" id="filtro">Filtrar</button>
+                      <span class="btn btn-dark mb-2" id="filtro">Filtrar</span>
                       
                     </div>
                   </div>
@@ -115,16 +104,16 @@
                 <span id="loaderFiltro">  </span>
               </div>
               
-            <p>
+              
             <div class="table-responsive resultadoFiltro">
-              <table class="table table-hover" id="tableEmpleados" cellspacing="3" cellpadding="3" border="1">
+              <table class="table table-hover" id="tableEmpleados">
                 <thead>
                   <tr>
-                    <th scope="col" align"right">#</th>
-                    <th scope="col" align"right">LATITUD</th>
-                    <th scope="col" align"right">LONGITUD</th>
-                    <th scope="col" align"right">TIMESTAMP</th>
-                    <th scope="col" align"right">FECHA</th>
+                    <th scope="col">#</th>
+                    <th scope="col">LATITUD</th>
+                    <th scope="col">LONGITUD</th>
+                    <th scope="col">TIMESTAMP</th>
+                    <th scope="col">FECHA</th>
                     
                   </tr>
                 </thead>
