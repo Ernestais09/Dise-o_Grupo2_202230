@@ -18,23 +18,24 @@
   </head>
 
   <body onload = "table();">
-    <script type="text/javascript">
+    <script typetable="text/javascript">
       function table(){
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function(){
           const data = JSON.parse(this.responseText);
           document.getElementById("table").innerHTML = data.map((element,  i) => {
-            return "<tr><td>"+i+"</td><td>"+element.LATITUD+"</td><td>"+element.LONGITUD+"</td><td>"+element.TIMESTAMP+"</td><td>"+element.FECHA+"</td></tr>";
+            return "<tr><td>"+element.LATITUD+"</td><td>"+element.LONGITUD+"</td><td>"+element.TIMESTAMP+"</td></tr>";
           }).join("\n");
 
           if (data.length > 0) {
             const latest = data[data.length - 1];
             marker.setLatLng([latest.LATITUD, latest.LONGITUD]);
+            //myMap.setView([latest.LATITUD, latest.LONGITUD]);
             points.push([latest.LATITUD, latest.LONGITUD]);
             poly.addLatLng([latest.LATITUD, latest.LONGITUD]);
           }
         }
-        xhttp.open("GET", "/WebApp/system.php");
+        xhttp.open("GET", "/php_program/system.php");
         xhttp.send();
       }
 
@@ -43,6 +44,8 @@
       }, 1000);
     </script>
   </body>
+
+
 </html>
 
 <html lang="en">
@@ -58,28 +61,29 @@
 <body>
     
     <div id="myMap" style="height: 500px"></div>
-    <table style="border:1;cellpadding:10;">
+    <div class="container" style="width:900px;"> 
+    <table class="table table-bordered">
     <thead>
       <tr>
-        <td>#</td>
+        <!--<td>#</td>-->
         <td>Latitud</td>
         <td>Longitud</td>
         <td>Timestamp</td>
-        <td>Fecha</td>
+        
       </tr>
     </thead>
     <tbody id="table">
     </tbody>
     </table>
-
+    </div> 
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
      crossorigin=""></script>
     <script src="map.js"></script>
 
 
-
-    <section>
+   
+ <!--   <section>
           <div class="container">
             <div class="row">
               
@@ -87,7 +91,7 @@
                 <form action="filtro.php" method="post" accept-charset="utf-8">
                   <div class="row">
                     <div class="col">
-                      <input type="date" name="fecha_ingreso" class="form-control"  placeholder="Fecha de Inicio" required>
+                      <input type="datetime-local" @bind="datestr" step="1" name="fecha_ingreso" class="form-control"  placeholder="Fecha de Inicio" required>
                     </div>
                     <div class="col">
                       <input type="date" name="fechaFin" class="form-control" placeholder="Fecha Final" required>
@@ -105,8 +109,8 @@
               </div>
               
               
-            <div class="table-responsive resultadoFiltro">
-              <table class="table table-hover" id="tableEmpleados">
+             <div class="table-responsive resultadoFiltro">
+               <table class="table table-hover" id="tableEmpleados">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -117,35 +121,23 @@
                     
                   </tr>
                 </thead>
-              <?php
-              include('config.php');
-              $sqldatosgps = ('SELECT * FROM usuario ORDER BY FECHA ASC');
-              $query = mysqli_query($con, $sqldatosgps);
-              $i =1;
-                while ($dataRow = mysqli_fetch_array($query)) { ?>
-                <tbody>
-                  <tr>
-                    <td><?php echo $i++; ?></td>
-                    <td><?php echo $dataRow['LATITUD'] ; ?></td>
-                    <td><?php echo $dataRow['LONGITUD'] ; ?></td>
-                    <td><?php echo $dataRow['TIMESTAMP'] ; ?></td>
-                    <td><?php echo $dataRow['FECHA'] ; ?></td>
-                   
-                </tr>
-                </tbody>
-              <?php } ?>
-              </table>
-            </div>
+                <tbody id="table1">
+               </tbody>
+              </table> 
+              </div>  
 
-            </div>
+             </div>
           </div>
       </section>
 
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-  <script src="assets/js/material.min.js"></script>
+  <script src="assets/js/material.min.js"></script> 
+
+  
      <script>
+ 
   $(function() {
-      setTimeout(function(){
+     setTimeout(function(){
         $('body').addClass('loaded');
       }, 1000);
 
@@ -161,9 +153,13 @@ $("#filtro").on("click", function(e){
   console.log(f_ingreso + '' + f_fin);
 
   if(f_ingreso !="" && f_fin !=""){
-    $.post("filtro.php", {f_ingreso, f_fin}, function (data) {
+    $.post("config.php", {f_ingreso, f_fin}, function (data) {
+
+
+      
       $("#tableEmpleados").hide();
-      $(".resultadoFiltro").html(data);
+     $(".resultadoFiltro").html(data);
+      //$(".resultadoFiltro").html('<table class="table table-hover"><thead><tr><th scope="col">#</th><th scope="col">LATITUD</th><th scope="col">LONGITUD</th><th scope="col">TIMESTAMP</th><th scope="col">FECHA</th></tr></thead><tbody id="table1"></tbody></table>'
       loaderF(false);
     });  
   }else{
@@ -182,8 +178,13 @@ function loaderF(statusLoader){
     }
   }
 });
-</script>
+</script>   -->
 
+<?php
+
+include 'ejemplo.php';
+
+?>
 
 </body>
 </html>
