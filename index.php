@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Real Time Data Display</title>
+    <title>GPS TIO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
@@ -30,7 +30,6 @@
           if (data.length > 0) {
             const latest = data[data.length - 1];
             marker.setLatLng([latest.LATITUD, latest.LONGITUD]);
-            //myMap.setView([latest.LATITUD, latest.LONGITUD]);
             points.push([latest.LATITUD, latest.LONGITUD]);
             poly.addLatLng([latest.LATITUD, latest.LONGITUD]);
           }
@@ -59,13 +58,15 @@
     crossorigin=""/>
 </head>
 <body>
-    
+    <h1 style="text-align:center;">GPS Camión</h1>
     <div id="myMap" style="height: 500px"></div>
+    <p>
+    <h2 style="text-align:center;">Ubicación actual</h2>
+    <p>
     <div class="container" style="width:900px;"> 
     <table class="table table-bordered">
     <thead>
       <tr>
-        <!--<td>#</td>-->
         <td>Latitud</td>
         <td>Longitud</td>
         <td>Timestamp</td>

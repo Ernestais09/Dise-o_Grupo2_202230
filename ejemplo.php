@@ -15,8 +15,8 @@
       <body>  
            <br /><br />  
            <div class="container" style="width:900px;">  
-                <h2 align="center">Filtrar</h2>  
-              <!--  <h3 align="center">Order Data</h3><br />  -->
+                <h2 align="center">Consulta de historicos por fecha</h2>
+                <h3 align="center">Seleccione la fecha de inicio y la fecha final a consultar</h3>
                 <div class="col-md-3">  
                      <input type="datetime-local" @bind="datestr" step="1" name="from_date" id="from_date" class="form-control" placeholder="From Date" />  
                 </div>  
