@@ -35,7 +35,7 @@
             poly.addLatLng([latest.LATITUD, latest.LONGITUD]);
           }
         }
-        xhttp.open("GET", "/WebApp/system.php");
+        xhttp.open("GET", "system.php");
         xhttp.send();
       }
 
