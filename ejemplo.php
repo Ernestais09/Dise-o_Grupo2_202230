@@ -15,8 +15,8 @@
       <body>  
            <br /><br />  
            <div class="container" style="width:900px;">  
-                <h2 align="center">Consulta de historicos por fecha</h2>
-                <h3 align="center">Seleccione la fecha de inicio y la fecha final a consultar</h3>
+           <h2 align="center">Donde estuvo</h2> 
+           <h3 align="center">Seleccione la fecha de inicio y la fecha final a consultar</h3>
                 <div class="col-md-3">  
                      <input type="datetime-local" @bind="datestr" step="1" name="from_date" id="from_date" class="form-control" placeholder="From Date" />  
                 </div>  
@@ -24,7 +24,7 @@
                      <input type="datetime-local" @bind="datestr" step="1" name="to_date" id="to_date" class="form-control" placeholder="To Date" />  
                 </div>  
                 <div class="col-md-5">  
-                     <input type="button" name="filter" id="filter" value="Filter" class="btn btn-info" />  
+                     <input type="button" name="Filtrar" id="filter" value="Filter" class="btn btn-info" />  
                 </div>  
                 <div style="clear:both"></div>                 
                 <br />  
@@ -70,6 +70,26 @@
     </table>
     </div> 
 
+    <div class="container" style="width:900px;"> 
+    <h2 align="center">Cuando estuvo</h2> 
+    <h3 align="center">Seleccione la ubicacion en el mapa a consultar</h3>
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <!--<td>#</td>-->
+        <td>Latitud</td>
+        <td>Longitud</td>
+        <td>Timestamp</td>
+        
+      </tr>
+    </thead>
+    <tbody id="order_table1">
+    </tbody>
+    </table>
+    </div> 
+
+
+
            </div>  
       </body>  
 
@@ -98,20 +118,27 @@
                           data:{from_date:from_date, to_date:to_date},  
                           success:function(data)  
                           {  
-                              
+
                               const dato = JSON.parse(data);
 
-                              document.getElementById("order_table").innerHTML = dato.map((element,  i) => {
+                              document.getElementById("order_table").innerHTML = dato.map((element) => {
                               return "<tr><td>"+element.LATITUD+"</td><td>"+element.LONGITUD+"</td><td>"+element.TIMESTAMP+"</td></tr>";
+                              
                                }).join("\n");  
+                               
+                               console.log(document.getElementById("order_table").innerHTML)
+                               
+                               
+                              for(element of dato){
+                                   
+                                   const poly2 = L.polyline(points2,{color:'red',opacity:1}).addTo(myMap);
 
-                              if (dato.length > 0) {
-                                const latest = dato[dato.length - 1];
-                               marker.setLatLng([latest.LATITUD, latest.LONGITUD]);
-                                myMap.setView([latest.LATITUD, latest.LONGITUD]);
-                               points2.push([latest.LATITUD, latest.LONGITUD]);
-                                poly2.addLatLng([latest.LATITUD, latest.LONGITUD]);
-                              } 
+                                   //L.marker([element.LATITUD, element.LONGITUD]).addTo(myMap);
+                                   points2.push([element.LATITUD, element.LONGITUD]);
+                                   poly2.addLatLng([element.LATITUD, element.LONGITUD]);
+                              }
+                               
+                              
      
                               //$('#order_table').html(data); 
    
@@ -126,4 +153,11 @@
                 
            });  
       });  
+
+     
+
+
+      
  </script> 
+
+<script type="text/javascript" src="file.js"></script>

@@ -23,8 +23,7 @@
       //          <th width="20%">Fecha</th> 
       //          </tr>  
       //';  
-      if(mysqli_num_rows($result) > 0)  
-      {  
+  
            while($row = mysqli_fetch_assoc($result))  
            {  
               //  $output .= '  
@@ -38,15 +37,9 @@
               //  ';  
               $array[] = $row;
            }  
-      }  
-      else  
-      {  
-           $output .= '  
-                <tr>  
-                     <td colspan="5">No Order Found</td>  
-                </tr>  
-           ';  
-      }  
+        
+       
+      
      // $output .= '</table>';  
       echo json_encode($array);  
  }  

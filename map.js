@@ -20,10 +20,72 @@
 
     var popup = L.popup();
 
-function onMapClick(e) {
-    popup
+//function onMapClick(e) {
+//    popup
+//        .setLatLng(e.latlng)
+//        .setContent("You clicked the map at " + e.latlng.toString())
+//        .openOn(myMap);
+//}
+
+    //function onMapClick(e) {
+  //  popup
+   // .setLatLng(e.latlng)
+  //  .setContent("Has clickado sobre las coordenadas: " + e.latlng.toString())
+ //   .openOn(myMap);
+//
+   // }
+    //myMap.on('click', onMapClick);
+
+    myMap.on('click', function(e) {
+        popup
         .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
+        .setContent("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
         .openOn(myMap);
-}
+
+         
+
+        console.log(e.latlng.lat + ", " + e.latlng.lng)
+
+        var latinit = (e.latlng.lat-0.0036022)
+        var latfin = (e.latlng.lat+0.0036022);
+        var lnginit = (e.latlng.lng+0.0036022);
+        var lngfin = (e.latlng.lng-0.0036022);
+
+        console.log(latinit)
+        console.log(latfin)
+        console.log(lnginit)
+        console.log(lngfin)
+
+        if(latinit != '' && lnginit!= '')  
+                {  
+                     $.ajax({  
+                          url:"where.php",  
+                          method:"POST",  
+                          data:{latinit:latinit, latfin:latfin,lnginit:lnginit, lngfin:lngfin},  
+                          success:function(data)  
+                          {  
+                              
+                              const dato = JSON.parse(data);
+
+                              console.log(data)
+
+                              document.getElementById("order_table1").innerHTML = dato.map((element) => {
+                              return "<tr><td>"+element.LATITUD+"</td><td>"+element.LONGITUD+"</td><td>"+element.TIMESTAMP+"</td></tr>";
+                              
+                               }).join("\n");  
+                               
+                               console.log(document.getElementById("order_table1").innerHTML)
+     
+                              //$('#order_table').html(data); 
+   
+                          }  
+                     });  
+                }  
+                else  
+                {  
+                     alert("Please Select Date");  
+                }  
+
+
+    });
 

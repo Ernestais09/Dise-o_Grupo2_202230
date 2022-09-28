@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>GPS TIO</title>
+    <title>Real Time Data Display</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
@@ -30,6 +30,7 @@
           if (data.length > 0) {
             const latest = data[data.length - 1];
             marker.setLatLng([latest.LATITUD, latest.LONGITUD]);
+            //myMap.setView([latest.LATITUD, latest.LONGITUD]);
             points.push([latest.LATITUD, latest.LONGITUD]);
             poly.addLatLng([latest.LATITUD, latest.LONGITUD]);
           }
@@ -56,17 +57,20 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
     integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
     crossorigin=""/>
+    <h1 style="text-align:center;">GPS Camión</h1>
 </head>
 <body>
-    <h1 style="text-align:center;">GPS Camión</h1>
+
     <div id="myMap" style="height: 500px"></div>
-    <p>
-    <h2 style="text-align:center;">Ubicación actual</h2>
-    <p>
+
+<p></p>
+<h2 style="text-align:center;">Ubicación actual</h2>    
+<p></p>
     <div class="container" style="width:900px;"> 
     <table class="table table-bordered">
     <thead>
       <tr>
+        <!--<td>#</td>-->
         <td>Latitud</td>
         <td>Longitud</td>
         <td>Timestamp</td>
@@ -184,8 +188,8 @@ function loaderF(statusLoader){
 <?php
 
 include 'ejemplo.php';
-
 ?>
+
 
 </body>
 </html>
