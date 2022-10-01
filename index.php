@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Real Time Data Display</title>
+    <title>GPS TIO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
@@ -88,102 +88,7 @@
 
 
    
- <!--   <section>
-          <div class="container">
-            <div class="row">
-              
-              <div class="col-md-12 text-center mt-5">
-                <form action="filtro.php" method="post" accept-charset="utf-8">
-                  <div class="row">
-                    <div class="col">
-                      <input type="datetime-local" @bind="datestr" step="1" name="fecha_ingreso" class="form-control"  placeholder="Fecha de Inicio" required>
-                    </div>
-                    <div class="col">
-                      <input type="date" name="fechaFin" class="form-control" placeholder="Fecha Final" required>
-                    </div>
-                    <div class="col">
-                      <span class="btn btn-dark mb-2" id="filtro">Filtrar</span>
-                      
-                    </div>
-                  </div>
-                </form>
-              </div>
 
-              <div class="col-md-12 text-center mt-5">     
-                <span id="loaderFiltro">  </span>
-              </div>
-              
-              
-             <div class="table-responsive resultadoFiltro">
-               <table class="table table-hover" id="tableEmpleados">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">LATITUD</th>
-                    <th scope="col">LONGITUD</th>
-                    <th scope="col">TIMESTAMP</th>
-                    <th scope="col">FECHA</th>
-                    
-                  </tr>
-                </thead>
-                <tbody id="table1">
-               </tbody>
-              </table> 
-              </div>  
-
-             </div>
-          </div>
-      </section>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-  <script src="assets/js/material.min.js"></script> 
-
-  
-     <script>
- 
-  $(function() {
-     setTimeout(function(){
-        $('body').addClass('loaded');
-      }, 1000);
-
-
-//FILTRANDO REGISTROS
-$("#filtro").on("click", function(e){ 
-  e.preventDefault();
-  
-  loaderF(true);
-
-  var f_ingreso = $('input[name=fecha_ingreso]').val();
-  var f_fin = $('input[name=fechaFin]').val();
-  console.log(f_ingreso + '' + f_fin);
-
-  if(f_ingreso !="" && f_fin !=""){
-    $.post("config.php", {f_ingreso, f_fin}, function (data) {
-
-
-      
-      $("#tableEmpleados").hide();
-     $(".resultadoFiltro").html(data);
-      //$(".resultadoFiltro").html('<table class="table table-hover"><thead><tr><th scope="col">#</th><th scope="col">LATITUD</th><th scope="col">LONGITUD</th><th scope="col">TIMESTAMP</th><th scope="col">FECHA</th></tr></thead><tbody id="table1"></tbody></table>'
-      loaderF(false);
-    });  
-  }else{
-    $("#loaderFiltro").html('<p style="color:red;  font-weight:bold;">Debe seleccionar ambas fechas</p>');
-  }
-} );
-
-
-function loaderF(statusLoader){
-    console.log(statusLoader);
-    if(statusLoader){
-      $("#loaderFiltro").show();
-      $("#loaderFiltro").html('<img class="img-fluid" src="assets/img/cargando.svg" style="left:50%; right: 50%; width:50px;">');
-    }else{
-      $("#loaderFiltro").hide();
-    }
-  }
-});
-</script>   -->
 
 <?php
 

@@ -108,7 +108,12 @@
            $('#filter').click(function(){  
 
                 var from_date = $('input[name=from_date]').val();  
-                var to_date = $('input[name=to_date]').val();  
+                var to_date = $('input[name=to_date]').val();
+
+                if (poly2) {
+                    myMap.removeLayer(poly2);
+                    poly2 = undefined;
+               }
 
                 if(from_date != '' && to_date != '')  
                 {  
@@ -127,18 +132,13 @@
                                }).join("\n");  
                                
                                console.log(document.getElementById("order_table").innerHTML)
+                               //[[0, 2], [32, 2]]
+                              points2 = dato.map((element) => [element.LATITUD, element.LONGITUD]);
+                               
+                             
+                               poly2 = L.polyline(points2,{color:'red',opacity:1}).addTo(myMap);
                                
                                
-                              for(element of dato){
-                                   
-                                   const poly2 = L.polyline(points2,{color:'red',opacity:1}).addTo(myMap);
-
-                                   //L.marker([element.LATITUD, element.LONGITUD]).addTo(myMap);
-                                   points2.push([element.LATITUD, element.LONGITUD]);
-                                   poly2.addLatLng([element.LATITUD, element.LONGITUD]);
-                              }
-                               
-                              
      
                               //$('#order_table').html(data); 
    
@@ -160,4 +160,3 @@
       
  </script> 
 
-<script type="text/javascript" src="file.js"></script>

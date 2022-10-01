@@ -14,7 +14,7 @@
     var points2 = [];
 
     const poly = L.polyline(points,{color:'blue',opacity:1}).addTo(myMap);
-    const poly2 = L.polyline(points2,{color:'red',opacity:1}).addTo(myMap);
+    let poly2 = L.polyline(points2,{color:'red',opacity:1}).addTo(myMap);
 
    // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 
