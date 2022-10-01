@@ -70,18 +70,11 @@
                           {  
 
                               const dato = JSON.parse(data);
-
-                              document.getElementById("order_table").innerHTML = dato.map((element) => {
-                              return "<tr><td>"+element.LATITUD+"</td><td>"+element.LONGITUD+"</td><td>"+element.TIMESTAMP+"</td></tr>";
-                              
-                               }).join("\n");  
                                
-                               console.log(document.getElementById("order_table").innerHTML)
-                               //[[0, 2], [32, 2]]
                               points2 = dato.map((element) => [element.LATITUD, element.LONGITUD]);
                                
                              
-                               poly2 = L.polyline(points2,{color:'red',opacity:1}).addTo(myMap);
+                              poly2 = L.polyline(points2,{color:'red',opacity:1}).addTo(myMap);
                                
                                
      
