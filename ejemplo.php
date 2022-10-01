@@ -5,8 +5,7 @@
  ?>  
  <!DOCTYPE html>  
  <html>  
-      <head>  
-           <title>Webslesson Tutorial | Ajax PHP MySQL Date Range Search using jQuery DatePicker</title>  
+      <head>   
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>  
            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>  
@@ -15,7 +14,7 @@
       <body>  
            <br /><br />  
            <div class="container" style="width:900px;">  
-           <h2 align="center">Donde estuvo</h2> 
+           <h2 align="center">Donde estuvo?</h2> 
            <h3 align="center">Seleccione la fecha de inicio y la fecha final a consultar</h3>
                 <div class="col-md-3">  
                      <input type="datetime-local" @bind="datestr" step="1" name="from_date" id="from_date" class="form-control" placeholder="From Date" />  
@@ -28,67 +27,13 @@
                 </div>  
                 <div style="clear:both"></div>                 
                 <br />  
-             <!--   <div id="order_table">  
-                     <table class="table table-bordered">  
-                          <tr>  
-                                
-                               <th width="15%">Latitud</th>  
-                               <th width="15%">Longitud</th>  
-                               <th width="10%">Timestamp</th>  
-                               <th width="20%">Fecha</th>  
-                          </tr>  
-                     <?php  
-                     while($row = mysqli_fetch_array($result))  
-                     {  
-                     ?>  
-                          <tr>  
-                                
-                               <td><?php echo $row["LATITUD"]; ?></td>  
-                               <td><?php echo $row["LONGITUD"]; ?></td>  
-                               <td><?php echo $row["TIMESTAMP"]; ?></td>  
-                               <td><?php echo $row["FECHA"]; ?></td>  
-                          </tr>  
-                     <?php  
-                     }  
-                     ?>  
-                     </table>  
-                </div>  -->
 
                 <div class="container" style="width:900px;"> 
-    <table class="table table-bordered">
-    <thead>
-      <tr>
-        <!--<td>#</td>-->
-        <td>Latitud</td>
-        <td>Longitud</td>
-        <td>Timestamp</td>
-        
-      </tr>
-    </thead>
-    <tbody id="order_table">
-    </tbody>
-    </table>
-    </div> 
 
     <div class="container" style="width:900px;"> 
-    <h2 align="center">Cuando estuvo</h2> 
+    <h2 align="center">Cuando estuvo?</h2> 
     <h3 align="center">Seleccione la ubicacion en el mapa a consultar</h3>
     <table class="table table-bordered">
-    <thead>
-      <tr>
-        <!--<td>#</td>-->
-        <td>Latitud</td>
-        <td>Longitud</td>
-        <td>Timestamp</td>
-        
-      </tr>
-    </thead>
-    <tbody id="order_table1">
-    </tbody>
-    </table>
-    </div> 
-
-
 
            </div>  
       </body>  
