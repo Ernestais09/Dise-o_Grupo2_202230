@@ -27,8 +27,6 @@
         var lnginit = (e.latlng.lng+0.0036022);
         var lngfin = (e.latlng.lng-0.0036022);
 
-        if(latinit != '' && lnginit!= '')  
-                {  
                      $.ajax({  
                           url:"where.php",  
                           method:"POST",  
@@ -38,24 +36,28 @@
                               
                             const dato = JSON.parse(data);
 
+                            if(data !== "[]"){
+
                               console.log(data)  
 
-                               var cuca = dato.map((element, i) => [i + ". " + element.TIMESTAMP + "<br/>"]).join("\n");
+                              var cuca = dato.map((element, i) => [i + ". " + element.TIMESTAMP + "<br/>"]).join("\n");
 
-                               popup
+                              popup
                               
-                               .setLatLng(e.latlng)
-                              .setContent(cuca)
-                               .openOn(myMap);
+                              .setLatLng(e.latlng)
+                              .setContent("El vehiculo ha estado por la zona en estas ocaciones: <br/>" + cuca)
+                              .openOn(myMap);
+
+                            }
+                              else{
+                                   popup
+                              
+                                   .setContent("El vehiculo no ha estado por la zona")
+                                   .openOn(myMap);
+                            }
      
                           }  
                      });  
-                }  
-                else  
-                {  
-                     alert("Porfavor seleccione un rango de fechas.");  
-                }  
-
 
     });
 
