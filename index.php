@@ -30,7 +30,6 @@
           if (data.length > 0) {
             const latest = data[data.length - 1];
             marker.setLatLng([latest.LATITUD, latest.LONGITUD]);
-            //myMap.setView([latest.LATITUD, latest.LONGITUD]);
             points.push([latest.LATITUD, latest.LONGITUD]);
             poly.addLatLng([latest.LATITUD, latest.LONGITUD]);
           }
@@ -45,6 +44,32 @@
     </script>
   </body>
 
+  <body onload = "table2();">
+    <script typetable="text/javascript">
+      function table2(){
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function(){
+          const data2 = JSON.parse(this.responseText);
+          document.getElementById("table2").innerHTML = data2.map((element2,  j) => {
+            return "<tr><td>"+element2.LATITUD+"</td><td>"+element2.LONGITUD+"</td><td>"+element2.TIMESTAMP+"</td></tr>";
+          }).join("\n");
+
+          if (data2.length > 0) {
+            const latest2 = data2[data2.length - 1];
+            marker2.setLatLng([latest2.LATITUD, latest2.LONGITUD]);
+            points3.push([latest2.LATITUD, latest2.LONGITUD]);
+            poly3.addLatLng([latest2.LATITUD, latest2.LONGITUD]);
+          }
+        }
+        xhttp.open("GET", "system2.php");
+        xhttp.send();
+      }
+
+      setInterval(function(){
+        table2();
+      }, 1000);
+    </script>
+  </body>
 
 </html>
 
@@ -64,13 +89,14 @@
     <div id="myMap" style="height: 500px"></div>
 
 <p></p>
-<h2 style="text-align:center;">Ubicación actual</h2>    
+<h2 style="text-align:center;">Ubicación actual</h2>   
+<p></p>
+<h3 style="text-align:center;">Camion 1:</h3>
 <p></p>
     <div class="container" style="width:900px;"> 
     <table class="table table-bordered">
     <thead>
       <tr>
-        <!--<td>#</td>-->
         <td>Latitud</td>
         <td>Longitud</td>
         <td>Timestamp</td>
@@ -81,10 +107,27 @@
     </tbody>
     </table>
     </div> 
+<p></p>
+<h3 style="text-align:center;">Camion 2:</h3>
+<p></p>
+    <div class="container" style="width:900px;"> 
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <td>Latitud</td>
+        <td>Longitud</td>
+        <td>Timestamp</td>
+        
+      </tr>
+    </thead>
+    <tbody id="table2">
+    </tbody>
+    </table>
+    </div>
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
      crossorigin=""></script>
-    <script src="map.js"></script>
+    <script src="map.js" typetable="text/javascript"></script>
 
 
    

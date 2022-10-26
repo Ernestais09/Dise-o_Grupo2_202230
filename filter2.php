@@ -1,16 +1,16 @@
-<?php  
- //filter.php  
-
-
+<?php   
  
+
+
+
  if(isset($_POST["from_date"], $_POST["to_date"]))  
  {  
-      $connect = mysqli_connect("datosgps.cbh1dasavvq2.us-east-1.rds.amazonaws.com", "ricardo", "ricardorobot22", "datosgps");  
+      $connect2 = mysqli_connect("datosgps.cbh1dasavvq2.us-east-1.rds.amazonaws.com", "ricardo", "ricardorobot22", "datosgps");  
      // $output = '';  
-      $query = "  SELECT * FROM usuario  WHERE TIMESTAMP BETWEEN '".$_POST["from_date"]."' AND '".$_POST["to_date"]."'  ";  
-      $result = mysqli_query($connect, $query);  
+      $query2 = "  SELECT * FROM usuario2  WHERE TIMESTAMP BETWEEN '".$_POST["from_date"]."' AND '".$_POST["to_date"]."'  ";  
+      $result2 = mysqli_query($connect2, $query2);  
 
-      $array = array();
+      $array2 = array();
       //$output .= '  
       //     <table class="table table-bordered">  
       //          <tr>  
@@ -21,7 +21,7 @@
       //          </tr>  
       //';  
   
-           while($row = mysqli_fetch_assoc($result))  
+           while($row = mysqli_fetch_assoc($result2))  
            {  
               //  $output .= '  
               //       <tr>  
@@ -32,12 +32,12 @@
               //            <td>'. $row["FECHA"] .'</td>  
               //       </tr>  
               //  ';  
-              $array[] = $row;
+              $array2[] = $row;
            }  
         
        
       
      // $output .= '</table>';  
-      echo json_encode($array);  
+      echo json_encode($array2);  
  }  
  ?>

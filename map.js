@@ -8,17 +8,28 @@
     }).addTo(myMap)
 
     let marker = L.marker([10.9886091, -74.7922088]).addTo(myMap)
+    let marker2 = L.marker([10.9886091, -74.7922088]).addTo(myMap)
 
 
     var points = [];
     var points2 = [];
+    var points3 = [];
+    var points4 = [];
 
     const poly = L.polyline(points,{color:'blue',opacity:1}).addTo(myMap);
     let poly2 = L.polyline(points2,{color:'red',opacity:1}).addTo(myMap);
+    const poly3 = L.polyline(points,{color:'green',opacity:1}).addTo(myMap);
+    let poly4 = L.polyline(points,{color:'green',opacity:1}).addTo(myMap);
 
     var popup = L.popup();
 
+    
+
     myMap.on('click', function(e) {
+      
+      var x = document.getElementById("mySelect").value;
+      console.log(x);
+
         popup
         .setLatLng(e.latlng)
 
@@ -27,6 +38,7 @@
         var lnginit = (e.latlng.lng+0.0036022);
         var lngfin = (e.latlng.lng-0.0036022);
 
+                 if(x=="V1"){
                      $.ajax({  
                           url:"where.php",  
                           method:"POST",  
@@ -40,24 +52,58 @@
 
                               console.log(data)  
 
-                              var cuca = dato.map((element, i) => [i + ". " + element.TIMESTAMP + "<br/>"]).join("\n");
+                              var hist = dato.map((element, i) => [i + ". " + element.TIMESTAMP + "<br/>"]).join("\n");
 
                               popup
                               
                               .setLatLng(e.latlng)
-                              .setContent("El vehiculo ha estado por la zona en estas ocaciones: <br/>" + cuca)
+                              .setContent("El vehiculo 1 ha estado por la zona en estas ocaciones: <br/>" + hist)
                               .openOn(myMap);
 
                             }
                               else{
                                    popup
                               
-                                   .setContent("El vehiculo no ha estado por la zona")
+                                   .setContent("El vehiculo 1 no ha estado por la zona <br/>")
                                    .openOn(myMap);
                             }
      
                           }  
-                     });  
+                     });
+                    }
 
+                    if(x=="V2"){
+                     $.ajax({  
+                      url:"where2.php",  
+                      method:"POST",  
+                      data:{latinit:latinit, latfin:latfin,lnginit:lnginit, lngfin:lngfin},  
+                      success:function(data)  
+                      {  
+                          
+                        const dato2 = JSON.parse(data);
+
+                        if(data !== "[]"){
+
+                          console.log(data)  
+
+                          var hist2 = dato2.map((element2, j) => [j + ". " + element2.TIMESTAMP + "<br/>"]).join("\n");
+
+                          popup
+                          
+                          .setLatLng(e.latlng)
+                          .setContent("El vehiculo 2 ha estado por la zona en estas ocaciones: <br/>" + hist2)
+                          .openOn(myMap);
+
+                        }
+                          else{
+                               popup
+                          
+                               .setContent("El vehiculo 2 no ha estado por la zona <br/>")
+                               .openOn(myMap);
+                        }
+ 
+                      }  
+                 });
+                }
     });
 
