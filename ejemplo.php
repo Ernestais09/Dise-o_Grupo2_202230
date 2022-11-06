@@ -10,15 +10,17 @@
            <br /><br />  
 
           <div class="container" style="width:900px;"> 
-          <h2 align="center">que camion?</h2> 
+          <h2 align="center">Que camión?</h2> 
           <h3 align="center">Seleccione el vehiculo a consultar</h3>
 
-          <label for="pet-select">escoje un vehiculo:</label>
+          <label for="pet-select">Escoja un vehiculo:</label>
 
           <select name="vehiculo" id="mySelect">
           
            <option value="V1">Vehiculo 1</option>
            <option value="V2">Vehiculo 2</option>
+           <option value="V3">Vehiculos 1 y 2</option>
+           <option value="V4">Ningun vehiculo</option>
           </select>
 
            
@@ -56,6 +58,7 @@
       $(document).ready(function(){
            
            $('#filter').click(function(){  
+               
               var x = document.getElementById("mySelect").value;  
            console.log(x);
                 var from = document.getElementById("from_date").value; 
@@ -78,6 +81,52 @@
 
                 if(from_date != '' && to_date != '')  
                 {  
+                    if(x=="V4"){
+                         if (poly2) {
+                         myMap.removeLayer(poly2);
+                         poly2 = undefined;
+
+                         if (poly4) {
+                         myMap.removeLayer(poly4);
+                         poly4 = undefined;
+                    }
+                    if(x=="V3"){
+                         $.ajax({  
+                          url:"filter.php",  
+                          method:"POST",  
+                          data:{from_date:from_date, to_date:to_date},  
+                          success:function(data)  
+                          {  
+
+                              const dato2 = JSON.parse(data);
+                               
+                              points4 = dato2.map((element2) => [element2.LATITUD, element2.LONGITUD]);
+                               
+                             
+                              poly4 = L.polyline(points4,{color:'red',opacity:1}).addTo(myMap);
+                               
+                              
+                          }  
+                     });
+                     
+                     $.ajax({  
+                          url:"filter2.php",  
+                          method:"POST",  
+                          data:{from_date:from_date, to_date:to_date},  
+                          success:function(data)  
+                          {  
+
+                              const dato = JSON.parse(data);
+                               
+                              points2 = dato.map((element) => [element.LATITUD, element.LONGITUD]);
+                               
+                             
+                              poly2 = L.polyline(points2,{color:'black',opacity:1}).addTo(myMap);
+                              
+                          }  
+                     });
+
+                    }
                     if(x=="V2"){
                      $.ajax({  
                           url:"filter2.php",  
@@ -93,11 +142,6 @@
                              
                               poly2 = L.polyline(points2,{color:'black',opacity:1}).addTo(myMap);
                                
-                               
-     
-                              //$('#order_table').html(data); 
-
-
                               
                           }  
                      });
@@ -118,11 +162,6 @@
                              
                               poly4 = L.polyline(points4,{color:'red',opacity:1}).addTo(myMap);
                                
-                               
-     
-                              //$('#order_table').html(data); 
-   
-
                               
                           }  
                      });

@@ -7,8 +7,22 @@
         attribution: '© OpenStreetMap'
     }).addTo(myMap)
 
-    let marker = L.marker([10.9886091, -74.7922088]).addTo(myMap)
-    let marker2 = L.marker([10.9886091, -74.7922088]).addTo(myMap)
+    var camion1 = L.icon({
+      iconUrl: 'Camion1.png',
+  
+      iconSize:     [38, 90], // size of the icon
+      iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+  });
+
+  var camion2 = L.icon({
+    iconUrl: 'Camion2.png',
+
+    iconSize:     [38, 90], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+});
+
+    let marker = L.marker([10.9886091, -74.7922088], {icon: camion1}).addTo(myMap)
+    let marker2 = L.marker([10.9886091, -74.7922088], {icon: camion2}).addTo(myMap)
 
 
     var points = [];
