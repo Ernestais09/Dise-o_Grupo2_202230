@@ -59,8 +59,8 @@
            
            $('#filter').click(function(){  
                
-              var x = document.getElementById("mySelect").value;  
-           console.log(x);
+               var x = document.getElementById("mySelect").value;  
+               console.log(x);
                 var from = document.getElementById("from_date").value; 
                 var to = document.getElementById("to_date").value; 
                 var from_date= from.toString();
@@ -85,10 +85,12 @@
                          if (poly2) {
                          myMap.removeLayer(poly2);
                          poly2 = undefined;
+                         }
 
                          if (poly4) {
                          myMap.removeLayer(poly4);
                          poly4 = undefined;
+                         }
                     }
                     if(x=="V3"){
                          $.ajax({  
@@ -173,7 +175,6 @@
                      alert("Please Select Date");  
                 }  
 
-                
            });  
       });  
 
