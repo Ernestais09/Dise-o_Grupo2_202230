@@ -3,11 +3,11 @@
 
 
  
- if(isset($_POST["from_date"], $_POST["to_date"]))  
+ if(isset($_POST["from_date"], $_POST["to_date"],$_POST["id"]))  
  {  
       $connect = mysqli_connect("datosgps.cbh1dasavvq2.us-east-1.rds.amazonaws.com", "ricardo", "ricardorobot22", "datosgps");  
      // $output = '';  
-      $query = "  SELECT * FROM usuario  WHERE TIMESTAMP BETWEEN '".$_POST["from_date"]."' AND '".$_POST["to_date"]."'  ";  
+      $query = "  SELECT * FROM usuario  WHERE TIMESTAMP BETWEEN '".$_POST["from_date"]."' AND '".$_POST["to_date"]."' AND  ID='".$_POST["id"]."' "  ;  
       $result = mysqli_query($connect, $query);  
 
       $array = array();

@@ -10,19 +10,19 @@
     var camion1 = L.icon({
       iconUrl: 'Camion1.png',
   
-      iconSize:     [38, 90], // size of the icon
-      iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+      iconSize:     [50, 60], // size of the icon
+      iconAnchor:   [25, 64], // point of the icon which will correspond to marker's location
   });
 
   var camion2 = L.icon({
     iconUrl: 'Camion2.png',
 
-    iconSize:     [38, 90], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    iconSize:     [50, 60], // size of the icon
+    iconAnchor:   [25, 64], // point of the icon which will correspond to marker's location
 });
 
-    let marker = L.marker([10.9886091, -74.7922088], {icon: camion1}).addTo(myMap)
-    let marker2 = L.marker([10.9886091, -74.7922088], {icon: camion2}).addTo(myMap)
+    let marker = L.marker([10.9886091, -74.7922088],{icon: camion1}).addTo(myMap)
+    let marker2 = L.marker([10.9886091, -74.7922088],{icon: camion2}).addTo(myMap)
 
 
     var points = [];
@@ -42,6 +42,7 @@
     myMap.on('click', function(e) {
       
       var x = document.getElementById("mySelect").value;
+      var id = x.toString();
       console.log(x);
 
         popup
@@ -52,11 +53,11 @@
         var lnginit = (e.latlng.lng+0.0036022);
         var lngfin = (e.latlng.lng-0.0036022);
 
-                 if(x=="V1"){
+                 
                      $.ajax({  
                           url:"where.php",  
                           method:"POST",  
-                          data:{latinit:latinit, latfin:latfin,lnginit:lnginit, lngfin:lngfin},  
+                          data:{latinit:latinit, latfin:latfin,lnginit:lnginit, lngfin:lngfin,id:id},  
                           success:function(data)  
                           {  
                               
@@ -71,53 +72,21 @@
                               popup
                               
                               .setLatLng(e.latlng)
-                              .setContent("El vehiculo 1 ha estado por la zona en estas ocaciones: <br/>" + hist)
+                              .setContent("El vehiculo "+id+" ha estado por la zona en estas ocaciones: <br/>" + hist)
                               .openOn(myMap);
 
                             }
                               else{
                                    popup
                               
-                                   .setContent("El vehiculo 1 no ha estado por la zona <br/>")
+                                   .setContent("El vehiculo "+id+" no ha estado por la zona <br/>")
                                    .openOn(myMap);
                             }
      
                           }  
                      });
-                    }
+                    
 
-                    if(x=="V2"){
-                     $.ajax({  
-                      url:"where2.php",  
-                      method:"POST",  
-                      data:{latinit:latinit, latfin:latfin,lnginit:lnginit, lngfin:lngfin},  
-                      success:function(data)  
-                      {  
-                          
-                        const dato2 = JSON.parse(data);
-
-                        if(data !== "[]"){
-
-                          console.log(data)  
-
-                          var hist2 = dato2.map((element2, j) => [j + ". " + element2.TIMESTAMP + "<br/>"]).join("\n");
-
-                          popup
-                          
-                          .setLatLng(e.latlng)
-                          .setContent("El vehiculo 2 ha estado por la zona en estas ocaciones: <br/>" + hist2)
-                          .openOn(myMap);
-
-                        }
-                          else{
-                               popup
-                          
-                               .setContent("El vehiculo 2 no ha estado por la zona <br/>")
-                               .openOn(myMap);
-                        }
- 
-                      }  
-                 });
-                }
+                    
     });
 

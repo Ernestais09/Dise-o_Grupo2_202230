@@ -17,10 +17,9 @@
 
           <select name="vehiculo" id="mySelect">
           
-           <option value="V1">Vehiculo 1</option>
-           <option value="V2">Vehiculo 2</option>
-           <option value="V3">Vehiculos 1 y 2</option>
-           <option value="V4">Ningun vehiculo</option>
+           <option value="1">Vehiculo 1</option>
+           <option value="2">Vehiculo 2</option>
+           <option value="3">Todos</option>
           </select>
 
            
@@ -33,8 +32,11 @@
                      <input type="datetime-local" @bind="datestr" step="1" name="to_date" id="to_date" class="form-control" placeholder="To Date" />  
                 </div>  
                 <div class="col-md-5">  
-                     <input type="button" name="Filtrar" id="filter" value="Filter" class="btn btn-info" />  
+                     <input type="button" name="Filtrar" id="filter" value="Filtar" class="btn btn-info" />  
+
+                     <input type="button" name="Borrar" id="Borrar" value="Borrar" class="btn btn-info" /> 
                 </div>  
+                
                 <div style="clear:both"></div>                 
                 <br /> <br />  
 
@@ -58,16 +60,17 @@
       $(document).ready(function(){
            
            $('#filter').click(function(){  
-               
-               var x = document.getElementById("mySelect").value;  
-               console.log(x);
+              var x = document.getElementById("mySelect").value;  
+           
+           console.log("filtro");
                 var from = document.getElementById("from_date").value; 
                 var to = document.getElementById("to_date").value; 
                 var from_date= from.toString();
                 var to_date = to.toString();
+                var id = x.toString();
 
-                console.log(from_date);
-                console.log(to_date);
+                
+                
 
                 if (poly2) {
                     myMap.removeLayer(poly2);
@@ -81,93 +84,75 @@
 
                 if(from_date != '' && to_date != '')  
                 {  
-                    if(x=="V4"){
-                         if (poly2) {
-                         myMap.removeLayer(poly2);
-                         poly2 = undefined;
-                         }
 
-                         if (poly4) {
-                         myMap.removeLayer(poly4);
-                         poly4 = undefined;
-                         }
-                    }
-                    if(x=="V3"){
-                         $.ajax({  
+                    if(id!=3){
+                     $.ajax({  
                           url:"filter.php",  
                           method:"POST",  
-                          data:{from_date:from_date, to_date:to_date},  
+                          data:{from_date:from_date,to_date:to_date,id:id},  
                           success:function(data)  
-                          {  
-
-                              const dato2 = JSON.parse(data);
-                               
-                              points4 = dato2.map((element2) => [element2.LATITUD, element2.LONGITUD]);
+                          {   console.log(id);
+                              console.log(data);
+                              const dato = JSON.parse(data);
+                              
+                              points2 = dato.map((element) => [element.LATITUD, element.LONGITUD]);
                                
                              
-                              poly4 = L.polyline(points4,{color:'red',opacity:1}).addTo(myMap);
+                              poly2 = L.polyline(points2,{color:'black',opacity:1}).addTo(myMap);
                                
+                               
+     
+                              //$('#order_table').html(data); 
+
+
                               
                           }  
                      });
+                    }
+                    
+                     if(id==3){
+
+                    
+                          $.ajax({  
+                          url:"filter.php",  
+                          method:"POST",  
+                          
+                          data:{from_date:from_date,to_date:to_date,id:1},  
+                          success:function(data)  
+                          {   
+                              console.log(data)
+                              const dato = JSON.parse(data);
+                               
+                              points4 = dato.map((element) => [element.LATITUD, element.LONGITUD]);
+                              poly4 = L.polyline(points4,{color:'blue',opacity:1}).addTo(myMap);
+                         
+                          }  
+                     });
+
+                     $.ajax({  
+                          url:"filter.php",  
+                          method:"POST",  
+                          
+                          data:{from_date:from_date,to_date:to_date,id:2},  
+                          success:function(data)  
+                          {   
+                              console.log(data)
+                              const dato = JSON.parse(data);
+                               
+                              points2 = dato.map((element) => [element.LATITUD, element.LONGITUD]);
+                              poly2 = L.polyline(points2,{color:'red',opacity:1}).addTo(myMap);
+                         
+                          }  
+                     });
+
                      
-                     $.ajax({  
-                          url:"filter2.php",  
-                          method:"POST",  
-                          data:{from_date:from_date, to_date:to_date},  
-                          success:function(data)  
-                          {  
+                    
 
-                              const dato = JSON.parse(data);
-                               
-                              points2 = dato.map((element) => [element.LATITUD, element.LONGITUD]);
-                               
-                             
-                              poly2 = L.polyline(points2,{color:'black',opacity:1}).addTo(myMap);
-                              
-                          }  
-                     });
+                   
+                    
 
-                    }
-                    if(x=="V2"){
-                     $.ajax({  
-                          url:"filter2.php",  
-                          method:"POST",  
-                          data:{from_date:from_date, to_date:to_date},  
-                          success:function(data)  
-                          {  
+                    }  
 
-                              const dato = JSON.parse(data);
-                               
-                              points2 = dato.map((element) => [element.LATITUD, element.LONGITUD]);
-                               
-                             
-                              poly2 = L.polyline(points2,{color:'black',opacity:1}).addTo(myMap);
-                               
-                              
-                          }  
-                     });
-                    }
-
-                    if(x=="V1"){
-                     $.ajax({  
-                          url:"filter.php",  
-                          method:"POST",  
-                          data:{from_date:from_date, to_date:to_date},  
-                          success:function(data)  
-                          {  
-
-                              const dato2 = JSON.parse(data);
-                               
-                              points4 = dato2.map((element2) => [element2.LATITUD, element2.LONGITUD]);
-                               
-                             
-                              poly4 = L.polyline(points4,{color:'red',opacity:1}).addTo(myMap);
-                               
-                              
-                          }  
-                     });
-                    }
                     
                 }  
                 else  
@@ -175,7 +160,21 @@
                      alert("Please Select Date");  
                 }  
 
+                
            });  
+
+           $('#Borrar').click(function(){
+
+               if (poly2) {
+                    myMap.removeLayer(poly2);
+                    poly2 = undefined;
+               }
+
+               if (poly4) {
+                    myMap.removeLayer(poly4);
+                    poly4 = undefined;
+               }
+          });    
       });  
 
      

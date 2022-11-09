@@ -21,8 +21,20 @@
     <script typetable="text/javascript">
       function table(){
         const xhttp = new XMLHttpRequest();
-        xhttp.onload = function(){
-          const data = JSON.parse(this.responseText);
+
+        var x = "1";
+        
+        var id= x.toString();
+        xhttp.open('POST', "system.php",true);
+
+        //Send the proper header information along with the request
+        xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        xhttp.onreadystatechange = function() {//Call a function when the state changes.
+        if(xhttp.readyState == 4 && xhttp.status == 200) {
+        
+
+        const data = JSON.parse(xhttp.responseText);
           document.getElementById("table").innerHTML = data.map((element,  i) => {
             return "<tr><td>"+element.LATITUD+"</td><td>"+element.LONGITUD+"</td><td>"+element.TIMESTAMP+"</td></tr>";
           }).join("\n");
@@ -33,9 +45,11 @@
             points.push([latest.LATITUD, latest.LONGITUD]);
             poly.addLatLng([latest.LATITUD, latest.LONGITUD]);
           }
+         }
         }
-        xhttp.open("GET", "system.php");
-        xhttp.send();
+        xhttp.send("id=" + id);
+        
+
       }
 
       setInterval(function(){
@@ -48,8 +62,17 @@
     <script typetable="text/javascript">
       function table2(){
         const xhttp = new XMLHttpRequest();
-        xhttp.onload = function(){
-          const data2 = JSON.parse(this.responseText);
+        var x = "2";
+        var id= x.toString();
+        xhttp.open('POST', "system.php",true);
+      
+        xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        xhttp.onreadystatechange = function() {//Call a function when the state changes.
+        if(xhttp.readyState == 4 && xhttp.status == 200) {
+        
+        
+          const data2 = JSON.parse(xhttp.responseText);
           document.getElementById("table2").innerHTML = data2.map((element2,  j) => {
             return "<tr><td>"+element2.LATITUD+"</td><td>"+element2.LONGITUD+"</td><td>"+element2.TIMESTAMP+"</td></tr>";
           }).join("\n");
@@ -60,11 +83,11 @@
             points3.push([latest2.LATITUD, latest2.LONGITUD]);
             poly3.addLatLng([latest2.LATITUD, latest2.LONGITUD]);
           }
-        }
-        xhttp.open("GET", "system2.php");
-        xhttp.send();
       }
-
+    }
+    xhttp.send("id=" + id);
+        
+  }
       setInterval(function(){
         table2();
       }, 1000);
